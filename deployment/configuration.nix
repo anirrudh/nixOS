@@ -52,17 +52,19 @@ in
     cudatoolkit
     wget
     vim
+    alacritty
     (import ./emacs.nix { inherit pkgs; })
-   
+
     # Themes, Icons, and Cursors
     arc-kde-theme
     latte-dock
-    capitaine-cursors 
     gnome3.adwaita-icon-theme
+    papirus-icon-theme
     brave
-    tilix
     lutris
     slack
+    hexchat
+    gitter
     albert
     thunderbird
     python38
@@ -94,9 +96,7 @@ in
   
   ];
   
-  programs.dconf.enable = true; 
-
-  # Use NVIDIA Drivers 
+   # Use NVIDIA Drivers 
   services.xserver.videoDrivers = ["nvidia"];
 
   systemd.services.nvidia-control-devices = {
@@ -106,6 +106,7 @@ in
 
   fonts.fonts = with pkgs; [
     helvetica-neue-lt-std
+    anonymousPro
   ];
 
 
@@ -132,9 +133,11 @@ in
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
  
-   # Enable fish shell
+  # Enable fish shell
   programs.fish.enable = true;
- 
+
+  # Enable emacs-daemon
+  
   users.users.anirrudh = {
     isNormalUser = true;
     home="/home/anirrudh";

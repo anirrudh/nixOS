@@ -9,6 +9,9 @@ in
     nix-mode		# ; nix configuration editing
     python-mode		# ; Python Major Mode!
     typescript-mode	# ; Typescript
+    helm # ;
+    elpy # ;
+    popup # ; 
   ]) ++ (with epkgs.melpaPackages; [
  
   ]) ++ (with epkgs.elpaPackages; [
