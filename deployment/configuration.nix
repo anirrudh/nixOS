@@ -42,44 +42,59 @@ in
  };
 
   environment.systemPackages = with pkgs; [
+    
+    # Development
     pciutils
     neofetch
     file
     gnumake
     gcc
     cudatoolkit
-    arc-kde-theme
     wget
     vim
-    emacs
+    (import ./emacs.nix { inherit pkgs; })
+   
+    # Themes, Icons, and Cursors
+    arc-kde-theme
+    latte-dock
+    capitaine-cursors 
+    gnome3.adwaita-icon-theme
     brave
-    alacritty
+    tilix
     lutris
     slack
     albert
-    conda
     thunderbird
-    gnome3.gnome-calendar
     python38
     git
-    latte-dock 
     piper
     libratbag
-    capitaine-cursors
+
+    # Games
+
+    # Game Drivers
     vulkan-loader
     vulkan-headers
     vulkan-validation-layers
     vulkan-tools
-    elementary-xfce-icon-theme
+    
+    # Gaming Applications
     steam
     steam-run
     playonlinux
-    gparted
+
+    # Utilities
+    gparted   
     ntfsprogs
     shutter
     etcher
     bitwarden
+    discord
+    unzip
+  
   ];
+  
+  programs.dconf.enable = true; 
 
   # Use NVIDIA Drivers 
   services.xserver.videoDrivers = ["nvidia"];
@@ -88,6 +103,10 @@ in
     wantedBy = ["multi-user.target"];
     serviceConfig.ExecStart = "${pkgs.linuxPackages.nvidia_x11.bin}/bin/nvidia-smi";
   };
+
+  fonts.fonts = with pkgs; [
+    helvetica-neue-lt-std
+  ];
 
 
   # Enable the OpenSSH daemon.
@@ -112,12 +131,19 @@ in
   # Enable the KDE Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
-
+ 
+   # Enable fish shell
+  programs.fish.enable = true;
+ 
   users.users.anirrudh = {
     isNormalUser = true;
     home="/home/anirrudh";
     description = "Anirrudh Krishnan's User Account";
-    extraGroups = [ "wheel" ]; 
+    extraGroups = [ "wheel" "networkmanager" ]; 
+  };
+
+  users.extraUsers.anirrudh = {
+    shell = "/run/current-system/sw/bin/fish";
   };
 
   system.stateVersion = "19.09";
