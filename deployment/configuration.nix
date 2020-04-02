@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 let 
   fixedNixpkgs = import ../nixpkgs.nix;
+  autostart_albert = (pkgs.makeAutostartItem{ name = "albert"; package = pkgs.albert; });
 in
 {
   # Use the systemd-boot EFI boot loader.
@@ -51,6 +52,7 @@ in
     gcc
     cudatoolkit
     wget
+    tmux
     vim
     alacritty
     (import ./emacs.nix { inherit pkgs; })
@@ -66,6 +68,7 @@ in
     hexchat
     gitter
     albert
+    autostart_albert
     thunderbird
     python38
     git
@@ -142,7 +145,7 @@ in
     isNormalUser = true;
     home="/home/anirrudh";
     description = "Anirrudh Krishnan's User Account";
-    extraGroups = [ "wheel" "networkmanager" ]; 
+    extraGroups = [ "wheel" "networkmanager" ];
   };
 
   users.extraUsers.anirrudh = {
