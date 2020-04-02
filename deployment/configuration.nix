@@ -1,9 +1,11 @@
 { config, pkgs, ... }:
 let 
   fixedNixpkgs = import ../nixpkgs.nix;
+  fixedHomeManager = import ../hmpkgs.nix;
   autostart_albert = (pkgs.makeAutostartItem{ name = "albert"; package = pkgs.albert; });
 in
 {
+ 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -37,11 +39,15 @@ in
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
-
+  
   nixpkgs.config = {
     allowUnfree = true; 
- };
+  };
 
+  # Enable home-manager
+  imports = [ "${fixedHomeManager}/nixos" ];
+
+  
   environment.systemPackages = with pkgs; [
     
     # Development
@@ -135,19 +141,25 @@ in
   # Enable the KDE Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
- 
-  # Enable fish shell
-  programs.fish.enable = true;
 
-  # Enable emacs-daemon
+  programs.fish.enable = true;
   
   users.users.anirrudh = {
     isNormalUser = true;
-    home="/home/anirrudh";
-    description = "Anirrudh Krishnan's User Account";
+    home ="/home/anirrudh";
     extraGroups = [ "wheel" "networkmanager" ];
   };
 
+  home-manager.users.anirrudh = { pkgs, ... }: {
+    home.packages = [ pkgs.firefox ];
+    programs.fish.enable = true;
+    programs.git = {
+      enable = true;
+      userName = "anirrudh";
+      userEmail = "anik597@gmail.com";
+    };
+  };
+ 
   users.extraUsers.anirrudh = {
     shell = "/run/current-system/sw/bin/fish";
   };
