@@ -1,8 +1,10 @@
 { pkgs, ... }:
 
-let hmpkgs = import ../../hmpkgs.nix;
+let 
+hmpkgs = import ../../hmpkgs.nix;
 in
 {
+
   programs.home-manager = {
     enable = true;
     path = "${hmpkgs}";
@@ -10,11 +12,16 @@ in
 
   home.packages = [
     pkgs.htop
-    #pkgs.vim_configurable
     pkgs.firefox
+    pkgs.neovim
   ];
 
-   programs.firefox = {
+  programs.firefox = {
     enable = true;
   };
-}
+
+  programs.neovim = {
+    enable = true;
+  };
+
+} 

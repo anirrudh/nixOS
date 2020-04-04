@@ -42,6 +42,7 @@ in
   
   nixpkgs.config = {
     allowUnfree = true; 
+    allowBroken = true;
   };
 
   # Enable home-manager
@@ -84,14 +85,15 @@ in
     # Games
 
     # Game Drivers
+    mesa
     vulkan-loader
     vulkan-headers
     vulkan-validation-layers
     vulkan-tools
     
     # Gaming Applications
-    steam
-    steam-run
+    (steam.override { extraPkgs = pkgs: [ cabextract gnutls openldap winetricks ]; nativeOnly = true;})
+    #steam-run
     playonlinux
 
     # Utilities
