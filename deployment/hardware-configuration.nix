@@ -24,8 +24,8 @@
     };
   
   fileSystems."/data" = {
-    device = "/dev/disk/by-uuid/2B24ABF923EE8CE3";
-    fsType = "ntfs";
+    device = "/dev/disk/by-uuid/48276bb0-1b85-4cda-9a07-052d201a4243";
+    fsType = "ext4";
   };
 
   swapDevices = [ ];

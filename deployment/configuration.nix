@@ -151,7 +151,6 @@ in
   };
 
   home-manager.users.anirrudh = { pkgs, ... }: {
-    home.packages = [ pkgs.firefox ];
     programs.fish.enable = true;
     programs.git = {
       enable = true;
