@@ -60,7 +60,7 @@ in
     cudatoolkit
     wget
     tmux
-    vim
+    neovim
     alacritty
     (import ./emacs.nix { inherit pkgs; })
 
@@ -93,7 +93,6 @@ in
     
     # Gaming Applications
     (steam.override { extraPkgs = pkgs: [ cabextract gnutls openldap winetricks ]; nativeOnly = true;})
-    #steam-run
     playonlinux
 
     # Utilities

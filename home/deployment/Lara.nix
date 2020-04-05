@@ -1,27 +1,18 @@
 { pkgs, ... }:
 
 let 
-hmpkgs = import ../../hmpkgs.nix;
+  hmpkgs = import ../../hmpkgs.nix;
 in
 {
-
   programs.home-manager = {
     enable = true;
     path = "${hmpkgs}";
   };
 
-  home.packages = [
-    pkgs.htop
-    pkgs.firefox
-    pkgs.neovim
+  nixpkgs.overlays = [ (import ../../overlays/overlay.nix) ];
+
+  home.packages = with pkgs; [
+    htop
   ];
-
-  programs.firefox = {
-    enable = true;
-  };
-
-  programs.neovim = {
-    enable = true;
-  };
 
 } 
