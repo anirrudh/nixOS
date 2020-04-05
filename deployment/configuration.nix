@@ -53,7 +53,6 @@ in
     
     # Development
     pciutils
-    neofetch
     file
     gnumake
     gcc
@@ -69,21 +68,14 @@ in
     latte-dock
     gnome3.adwaita-icon-theme
     papirus-icon-theme
-    brave
     lutris
-    slack
-    hexchat
-    gitter
     albert
     autostart_albert
-    thunderbird
-    python38
     git
     piper
     libratbag
 
     # Games
-
     # Game Drivers
     mesa
     vulkan-loader
@@ -95,15 +87,6 @@ in
     (steam.override { extraPkgs = pkgs: [ cabextract gnutls openldap winetricks ]; nativeOnly = true;})
     playonlinux
 
-    # Utilities
-    gparted   
-    ntfsprogs
-    shutter
-    etcher
-    bitwarden
-    discord
-    unzip
-  
   ];
   
    # Use NVIDIA Drivers 
@@ -115,10 +98,8 @@ in
   };
 
   fonts.fonts = with pkgs; [
-    helvetica-neue-lt-std
     anonymousPro
   ];
-
 
   # Enable the OpenSSH daemon.
   services.openssh = {
