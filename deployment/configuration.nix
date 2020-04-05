@@ -5,26 +5,17 @@ let
   autostart_albert = (pkgs.makeAutostartItem{ name = "albert"; package = pkgs.albert; });
 in
 {
- 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "Lara"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
   networking.useDHCP = false;
   networking.interfaces.enp6s0.useDHCP = true;
-  #console.Font = "Lat2-Terminus16";
-  #console.KeyMap = "us";
 
   #Enable Bluetooth
   hardware.bluetooth.enable = true; 
-  
-  # Enable openGL
-  hardware.opengl.enable = true;
-  hardware.opengl.driSupport32Bit = true;
-  hardware.pulseaudio.support32Bit = true;
 
   # lock nixpkgs
   nix.nixPath = ["nixpkgs=${fixedNixpkgs}"];
@@ -34,71 +25,53 @@ in
 
   # Select internationalisation properties.
   i18n = {
-        defaultLocale = "en_US.UTF-8";
+    defaultLocale = "en_US.UTF-8";
   };
+  console.keyMap = "us";
+  console.font = "Lat2-Terminus16";
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
   
   nixpkgs.config = {
     allowUnfree = true; 
-    allowBroken = true;
   };
 
-  # Enable home-manager
-  imports = [ "${fixedHomeManager}/nixos" ];
-
+  imports = [ 
+    "${fixedHomeManager}/nixos"   # Home-Manager
+    ./profiles/graphics.nix       # Graphics (Vulkan, CUDA)
+    ./profiles/uiux.nix           # UI/UX (Icons, Themes)
+    ./profiles/gaming.nix         # Gaming Libraries (Steam, Lutris)
+    ./profiles/custohware.nix     # Custom hardware (qmk, logitech)
+  ];
   
+
   environment.systemPackages = with pkgs; [
-    
-    # Development
     pciutils
     file
     gnumake
     gcc
-    cudatoolkit
     wget
     tmux
     neovim
     alacritty
-    (import ./emacs.nix { inherit pkgs; })
-
-    # Themes, Icons, and Cursors
-    arc-kde-theme
-    latte-dock
-    gnome3.adwaita-icon-theme
-    papirus-icon-theme
-    lutris
+    (import ./programs/emacs.nix { inherit pkgs; })
     albert
     autostart_albert
     git
-    piper
-    libratbag
-
-    # Games
-    # Game Drivers
-    mesa
-    vulkan-loader
-    vulkan-headers
-    vulkan-validation-layers
-    vulkan-tools
-    
-    # Gaming Applications
-    (steam.override { extraPkgs = pkgs: [ cabextract gnutls openldap winetricks ]; nativeOnly = true;})
-    playonlinux
-
   ];
   
-   # Use NVIDIA Drivers 
+  # Use NVIDIA Drivers 
   services.xserver.videoDrivers = ["nvidia"];
-
   systemd.services.nvidia-control-devices = {
     wantedBy = ["multi-user.target"];
     serviceConfig.ExecStart = "${pkgs.linuxPackages.nvidia_x11.bin}/bin/nvidia-smi";
   };
 
+  # Add Custom Fonts
   fonts.fonts = with pkgs; [
     anonymousPro
+    source-code-pro
   ];
 
   # Enable the OpenSSH daemon.
@@ -114,6 +87,7 @@ in
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
+  hardware.pulseaudio.support32Bit = true;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
