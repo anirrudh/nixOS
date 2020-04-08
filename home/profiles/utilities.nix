@@ -8,7 +8,10 @@
     unzip     # makes unzipping easy
     bitwarden # password manager
     neofetch  # pretty computer info
-    brave     # brave browser - privacy
+    brave     # privacy focused kickass browser
+    alacritty # blazing fast gpu terminal emu
     firefox   # backup safe and trusty browser
+    virt-manager # virtualize all the things
+    cava      # visualize audio. yeah, it's cool. 
   ];
 }

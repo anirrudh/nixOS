@@ -10,5 +10,6 @@
     keybase   # keybase cli
     keybase-gui # keybase gui
     thunderbird # e-mail client 
+    minetime    # a newer e-mail client
   ];
 }

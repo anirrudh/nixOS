@@ -8,6 +8,14 @@ in
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelModules = [ "kvm-amd" ];
+
+  # Enable virtualization
+  virtualisation.libvirtd.enable = true; 
+  virtualisation.docker = {
+    enable = true;
+    autoPrune.enable = true;
+  };
 
   networking.hostName = "Lara"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -45,16 +53,17 @@ in
     ./profiles/custohware.nix     # Custom hardware (qmk, logitech)
   ];
   
-
   environment.systemPackages = with pkgs; [
+    direnv
     pciutils
+    brave
     file
     gnumake
     gcc
     wget
+    libsecret
     tmux
     neovim
-    alacritty
     (import ./programs/emacs.nix { inherit pkgs; })
     albert
     autostart_albert
@@ -98,26 +107,27 @@ in
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
 
-  programs.fish.enable = true;
+  # programs.fish.enable = true;
   
-  users.users.anirrudh = {
+  users.extraUsers.anirrudh = {
     isNormalUser = true;
-    home ="/home/anirrudh";
-    extraGroups = [ "wheel" "networkmanager" ];
+    home = "/home/anirrudh";
+    shell = pkgs.fish;
+    extraGroups = [ "wheel" "networkmanager" "audio" "docker" "libvirtd" ];
   };
 
-  home-manager.users.anirrudh = { pkgs, ... }: {
-    programs.fish.enable = true;
-    programs.git = {
-      enable = true;
-      userName = "anirrudh";
-      userEmail = "anik597@gmail.com";
-    };
-  };
+#  home-manager.users.anirrudh = { pkgs, ... }: {
+#    programs.fish.enable = true;
+#    programs.git = {
+#      enable = true;
+#      userName = "anirrudh";
+#      userEmail = "anik597@gmail.com";
+#    };
+#  };
  
-  users.extraUsers.anirrudh = {
-    shell = "/run/current-system/sw/bin/fish";
-  };
+#  users.extraUsers.anirrudh = {
+#    shell = "/run/current-system/sw/bin/fish";
+#  };
 
   system.stateVersion = "19.09";
 }

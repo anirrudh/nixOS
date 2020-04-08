@@ -17,7 +17,6 @@ pkgs.mkShell {
     export NIX_PATH="nixpkgs=${nixpkgs}:."
     export NIXOPS_STATE="./state.nixops"
     export NIXPKGS_ALLOW_UNFREE=1
-
     export HM_PATH="${hmpkgs}";
       '';
 }
