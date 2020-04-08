@@ -106,8 +106,6 @@ in
   # Enable the KDE Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
   services.xserver.desktopManager.plasma5.enable = true;
-
-  # programs.fish.enable = true;
   
   users.extraUsers.anirrudh = {
     isNormalUser = true;
@@ -115,19 +113,6 @@ in
     shell = pkgs.fish;
     extraGroups = [ "wheel" "networkmanager" "audio" "docker" "libvirtd" ];
   };
-
-#  home-manager.users.anirrudh = { pkgs, ... }: {
-#    programs.fish.enable = true;
-#    programs.git = {
-#      enable = true;
-#      userName = "anirrudh";
-#      userEmail = "anik597@gmail.com";
-#    };
-#  };
- 
-#  users.extraUsers.anirrudh = {
-#    shell = "/run/current-system/sw/bin/fish";
-#  };
 
   system.stateVersion = "19.09";
 }
