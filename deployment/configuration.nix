@@ -66,7 +66,7 @@ in
     wget
     libsecret
     tmux
-    llvm
+    clang-tools
     neovim
     latte-dock
     (import ./programs/emacs.nix { inherit pkgs; })

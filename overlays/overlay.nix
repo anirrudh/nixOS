@@ -9,8 +9,10 @@ self: super:  {
         hi Normal guibg=NONE ctermbg=NONE " enable transparent background
         map <C-n> :NERDTreeToggle<CR>     " NerdTree Toggle
 
+        let g:ycm_global_ycm_extra_conf = '~/dotfiles/home/settings/.ycm_extra_conf.py'
         let g:LanguageClient_serverCommands = {
-        \ 'python': ['pyls']
+        \ 'python': ['pyls'],
+        \ 'c': ['clangd']
         \ }
 
         nnoremap <F5> :call LanguageClient_contextMenu()<CR>
