@@ -6,6 +6,9 @@ let
 in
 {
   # Use the systemd-boot EFI boot loader.
+  boot.initrd.availableKernelModules = [
+    "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
+  boot.initrd.kernelModules = [ ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelModules = [ "kvm-amd" ];
@@ -63,11 +66,20 @@ in
     wget
     libsecret
     tmux
+    llvm
     neovim
+    latte-dock
     (import ./programs/emacs.nix { inherit pkgs; })
     albert
     autostart_albert
     git
+    etcher
+    obs-studio
+    vagrant
+    (python3.withPackages(ps: [
+      ps.python-language-server
+      ps.pyls-mypy ps.pyls-isort ps.pyls-black
+    ]))
   ];
   
   # Use NVIDIA Drivers 
@@ -78,6 +90,7 @@ in
   };
 
   # Add Custom Fonts
+
   fonts.fonts = with pkgs; [
     anonymousPro
     source-code-pro

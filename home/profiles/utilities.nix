@@ -13,5 +13,6 @@
     firefox   # backup safe and trusty browser
     virt-manager # virtualize all the things
     cava      # visualize audio. yeah, it's cool. 
+    vlc
   ];
 }

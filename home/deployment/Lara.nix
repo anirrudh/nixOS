@@ -24,6 +24,8 @@ in
     userEmail = "anik597@gmail.com";
   };
 
+  services.lorri.enable = true;
+
   imports = [
     ../profiles/communication.nix
     ../profiles/utilities.nix
