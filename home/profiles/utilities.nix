@@ -12,7 +12,7 @@
     alacritty # blazing fast gpu terminal emu
     firefox   # backup safe and trusty browser
     virt-manager # virtualize all the things
-    cava      # visualize audio. yeah, it's cool. 
-    vlc
+    cava      # visualize audio. yeah, it's cool 
+    vlc       # a multimedia tool for everything
   ];
 }

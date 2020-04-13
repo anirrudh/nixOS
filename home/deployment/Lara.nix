@@ -24,6 +24,20 @@ in
     userEmail = "anik597@gmail.com";
   };
 
+  programs.tmux = {
+    enable = true;
+    shortcut = "a"; # Map Leader => CTRL-A
+    baseIndex = 1;
+    extraConfig = ''
+      source ${pkgs.python38Packages.powerline}/share/tmux/powerline.conf
+      bind | split-window -h -c "#{pane_current_path}"
+      bind - split-window -v -c "#{pane_current_path}"
+      bind '"' split-window -h -c "#{pane_current_path}"
+      bind % split-window -v -c "#{pane_current_path}"
+      bind c new-window -c "#{pane_current_path}"
+    '';
+  };
+
   services.lorri.enable = true;
 
   imports = [

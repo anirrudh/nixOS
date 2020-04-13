@@ -76,6 +76,7 @@ in
     etcher
     obs-studio
     vagrant
+    python38Packages.powerline
     (python3.withPackages(ps: [
       ps.python-language-server
       ps.pyls-mypy ps.pyls-isort ps.pyls-black
