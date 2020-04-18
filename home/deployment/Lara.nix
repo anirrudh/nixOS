@@ -11,7 +11,8 @@ in
 
   programs.fish = { 
     enable = true;
-    shellInit ="set -e SSH_ASKPASS";
+    shellInit ="set -e SSH_ASKPASS
+                alias nix-config='tmuxp load ~/dotfiles/nix_config_session.yaml'";
   };
 
   programs.alacritty = {
@@ -42,15 +43,13 @@ in
 
   imports = [
     ../profiles/communication.nix
-    ../profiles/utilities.nix
+    ../profiles/general.nix
+    ../profiles/sysutils.nix
+    ../profiles/development.nix
   ];
 
   # neovim
   nixpkgs.overlays = [ (import ../../overlays/overlay.nix) ];
-  home.packages = with pkgs; [
-    htop
-    direnv
-  ];
 
   nixpkgs.config.allowUnfree = true;
 } 

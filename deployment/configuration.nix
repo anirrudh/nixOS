@@ -57,9 +57,9 @@ in
   ];
   
   environment.systemPackages = with pkgs; [
+    nfs-utils
     direnv
     pciutils
-    brave
     file
     gnumake
     gcc
@@ -72,11 +72,6 @@ in
     (import ./programs/emacs.nix { inherit pkgs; })
     albert
     autostart_albert
-    git
-    etcher
-    obs-studio
-    vagrant
-    python38Packages.powerline
     (python3.withPackages(ps: [
       ps.python-language-server
       ps.pyls-mypy ps.pyls-isort ps.pyls-black

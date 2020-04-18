@@ -28,6 +28,11 @@
     fsType = "ext4";
   };
 
+  fileSystems."/data/hyperloop" = {
+    device = "192.168.1.134:/mnt/hyperloop";
+    fsType = "nfs";
+  };
+
   swapDevices = [ ];
 
   nix.maxJobs = lib.mkDefault 24;
