@@ -6,15 +6,29 @@ let
 in
 {
   # Use the systemd-boot EFI boot loader.
-  boot.initrd.availableKernelModules = [
-    "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
-  boot.initrd.kernelModules = [ ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.availableKernelModules = [ 
+    "amdgpu" "vfio-pci" "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" "vfio_virqfd" "vfio_iommu_type1" "vfio" ];
+  boot.initrd.kernelModules = [ "amdgpu" "vfio-pci" "vfio_virqfd" "vfio_iommu_type1" "vfio" ];
+  boot.kernelParams = [ "amd_iommu=on" ];
+  boot.blacklistedKernelModules = [ "nvidia" "nouveau" "snd_hda_intel" ];
   boot.kernelModules = [ "kvm-amd" ];
+  boot.initrd.preDeviceCommands = ''
+  DEVS="0000:0b:00.0,0000:0b:00.1,0000:0b:00.2,0000:0b:00.3"
+
+  for DEV in $DEVS; do
+    echo "vfio-pci" > /sys/bus/pci/devices/$DEV/driver_override
+  done
+  modprobe -i vfio-pci
+ '';
 
   # Enable virtualization
-  virtualisation.libvirtd.enable = true; 
+  virtualisation.libvirtd = {
+    enable = true; 
+    qemuOvmf = true;
+  };
+
   virtualisation.docker = {
     enable = true;
     autoPrune.enable = true;
@@ -57,6 +71,8 @@ in
   ];
   
   environment.systemPackages = with pkgs; [
+    OVMF
+    protontricks
     nfs-utils
     direnv
     pciutils
@@ -68,6 +84,8 @@ in
     tmux
     clang-tools
     neovim
+    parted
+    gparted
     latte-dock
     (import ./programs/emacs.nix { inherit pkgs; })
     albert
@@ -79,11 +97,11 @@ in
   ];
   
   # Use NVIDIA Drivers 
-  services.xserver.videoDrivers = ["nvidia"];
-  systemd.services.nvidia-control-devices = {
-    wantedBy = ["multi-user.target"];
-    serviceConfig.ExecStart = "${pkgs.linuxPackages.nvidia_x11.bin}/bin/nvidia-smi";
-  };
+  services.xserver.videoDrivers = ["amdgpu"];
+  #systemd.services.nvidia-control-devices = {
+  #  wantedBy = ["multi-user.target"];
+  #  serviceConfig.ExecStart = "${pkgs.linuxPackages.nvidia_x11.bin}/bin/nvidia-smi";
+  #};
 
   # Add Custom Fonts
 
