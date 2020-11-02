@@ -8,8 +8,8 @@
     deployment.targetHost = "localhost";
   
   imports = [
-    ./configuration.nix
-    ./hardware-configuration.nix
+    ./conf/Lara/configuration.nix
+    ./conf/Lara/hardware-configuration.nix
   ];
 };
 }
