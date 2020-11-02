@@ -11,5 +11,6 @@
     keybase-gui # keybase gui
     thunderbird # e-mail client 
     minetime    # a newer e-mail client
+    zoom-us     # I already hate myself
   ];
 }

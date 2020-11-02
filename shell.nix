@@ -3,7 +3,7 @@ let
   hmpkgs = import ./hmpkgs.nix;
   pkgs = import nixpkgs {
      config = { allowUnfree = true; };
-     overlays = [ (import ./overlays/overlay.nix) ];
+     overlays = [ (import ./overlays/overlay.nix) (import ./overlays/awesome.nix) ];
   };
 in
 
@@ -14,7 +14,7 @@ pkgs.mkShell {
   # see README.org for usage
 
   shellHook = ''
-    export NIX_PATH="nixpkgs=${nixpkgs}:."
+    export NIX_PATH="nixpkgs=${nixpkgs}:.:nixpkgs-overlays=$PWD/overlays"
     export NIXOPS_STATE="./state.nixops"
     export NIXPKGS_ALLOW_UNFREE=1
     export HM_PATH="${hmpkgs}";

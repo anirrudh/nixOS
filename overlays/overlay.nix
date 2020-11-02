@@ -1,7 +1,9 @@
 self: super:  {
+  awesome = super.awesome.override { gtk3Support = true; }; 
   neovim = super.neovim.override {
     configure = {
-       customRC = ''
+      customRC = ''
+        Plug 'peitalin/vim-jsx-typescript'
         syntax on                         " syntax highlighting
         set number                        " set line numbers on
         set hidden                        " set hidden for remapping LanguageClient
@@ -14,6 +16,7 @@ self: super:  {
         \ 'python': ['pyls'],
         \ 'c': ['clangd']
         \ }
+        let g:vim_jsx_pretty_highlight_close_tag = 1
 
         nnoremap <F5> :call LanguageClient_contextMenu()<CR>
         nnoremap <silent> gh :call LanguageClient_textDocument_hover()<CR>
@@ -28,6 +31,9 @@ self: super:  {
          gitgutter
          fzf-vim
          vim-nix
+         vim-javascript
+         yats-vim
+         vim-jsx-pretty
          LanguageClient-neovim
          nerdtree
          nerdtree-git-plugin

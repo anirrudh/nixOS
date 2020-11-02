@@ -1,5 +1,5 @@
 # nixpkgs unstable
 builtins.fetchTarball {
-  url = "https://github.com/NixOS/nixpkgs-channels/archive/b2935fbeceaea0b64df4401545d7c8ea29102120.tar.gz";
-  sha256 = "1z1631v7q2c8mavy7xnvfx0wz34zd49jqmjg66nk0qgsi605m3qp";
+  url = "https://github.com/NixOS/nixpkgs-channels/archive/c59ea8b8a0e7f927e7291c14ea6cd1bd3a16ff38.tar.gz";
+  sha256 = "1ak7jqx94fjhc68xh1lh35kh3w3ndbadprrb762qgvcfb8351x8v";
     }

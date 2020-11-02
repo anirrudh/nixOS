@@ -12,7 +12,7 @@ in
   programs.fish = { 
     enable = true;
     shellInit ="set -e SSH_ASKPASS
-                alias nix-config='tmuxp load ~/dotfiles/nix_config_session.yaml'";
+    alias nix-config='tmuxp load ~/dotfiles/nix_config_session.yaml'";
   };
 
   programs.alacritty = {
@@ -27,8 +27,10 @@ in
 
   programs.tmux = {
     enable = true;
-    shortcut = "a"; # Map Leader => CTRL-A
+    shortcut = "b"; # Map Leader => CTRL-B
+    terminal = "screen-256color";
     baseIndex = 1;
+    tmuxp.enable = true; 
     extraConfig = ''
       source ${pkgs.python38Packages.powerline}/share/tmux/powerline.conf
       bind | split-window -h -c "#{pane_current_path}"
@@ -37,6 +39,18 @@ in
       bind % split-window -v -c "#{pane_current_path}"
       bind c new-window -c "#{pane_current_path}"
     '';
+  };
+
+  programs.urxvt = {
+    enable = true;
+    fonts = [ "xft:Droid Sans Mono Nerd Font:size=14" ];
+    keybindings = { 
+      "Shift-Control-C" = "eval:selection_to_clipboard";
+      "Shift-Control-V" = "eval:paste_clipboard";
+    };
+    scroll.bar = {
+      enable = false;
+    };
   };
 
   services.lorri.enable = true;
