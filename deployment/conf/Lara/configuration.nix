@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 let
-  fixedNixpkgs = import ../nixpkgs.nix;
-  fixedHomeManager = import ../hmpkgs.nix;
+  fixedNixpkgs = import ../../../nixpkgs.nix;
+  fixedHomeManager = import ../../../hmpkgs.nix;
   myawesome = (pkgs.awesome.overrideAttrs (old: {
       src = pkgs.fetchFromGitHub {
         owner = "awesomeWM";
@@ -45,7 +45,7 @@ in
   nix.nixPath = ["nixpkgs=${fixedNixpkgs}"];
   
   # apply overlays
-  nixpkgs.overlays = [ (import ../overlays/overlay.nix) (import ../overlays/awesome.nix) ];
+  nixpkgs.overlays = [ (import ../../../overlays/overlay.nix) (import ../../../overlays/awesome.nix) ];
 
   # Select internationalisation properties.
   i18n = {
@@ -63,10 +63,10 @@ in
 
   imports = [ 
     "${fixedHomeManager}/nixos"   # Home-Manager
-    ./profiles/graphics.nix       # Graphics (Vulkan, CUDA)
-    ./profiles/uiux.nix           # UI/UX (Icons, Themes)
-    ./profiles/gaming.nix         # Gaming Libraries (Steam, Lutris)
-    ./profiles/custohware.nix     # Custom hardware (qmk, logitech)
+    ../../profiles/graphics.nix       # Graphics (Vulkan, CUDA)
+    ../../profiles/uiux.nix           # UI/UX (Icons, Themes)
+    ../../profiles/gaming.nix         # Gaming Libraries (Steam, Lutris)
+    ../../profiles/custohware.nix     # Custom hardware (qmk, logitech)
   ];
   
   environment.systemPackages = with pkgs; [
@@ -92,7 +92,7 @@ in
     picom
     firefox-bin
     neovim
-    (import ./programs/emacs.nix { inherit pkgs; })
+    (import ../../programs/emacs.nix { inherit pkgs; })
     (python3.withPackages(ps: [
       ps.python-language-server
       ps.pyls-mypy ps.pyls-isort ps.pyls-black
