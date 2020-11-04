@@ -79,6 +79,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
      wget vim
+     kubectl
      firefox
   ];
 
@@ -89,6 +90,11 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+  services.kubernetes = { 
+    easyCerts = true;
+    roles = [ "master" "node" ];
+    masterAddress = "localhost";
+  };
 
   # List services that you want to enable:
 
@@ -103,10 +109,6 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-  systemd.services.nvidia-control-devices = {
-   wantedBy = ["multi-user.target"];
-   serviceConfig.ExecStart = "${pkgs.linuxPackages.nvidia_x11.bin}/bin/nvidia-smi";
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

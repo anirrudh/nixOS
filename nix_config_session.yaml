@@ -1,11 +1,18 @@
 session_name: nix-config
 windows:
-- window_name: home
+- window_name: Lara
   layout: even-vertical
   shell_command_before:
     - cd ~/dotfiles
   panes:
-    - nvim ./deployment/configuration.nix
+    - nvim ./deployment/conf/Lara/configuration.nix
+    - nvim ./home/deployment/Lara.nix
+- window_name: Lara
+  layout: even-vertical
+  shell_command_before:
+    - cd ~/dotfiles
+  panes:
+    - nvim ./deployment/conf/GoingMerry/configuration.nix
     - nvim ./home/deployment/Lara.nix
 - window_name: rebuild
   layout: even-vertical
