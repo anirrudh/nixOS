@@ -6,11 +6,11 @@ self: super:  {
         filetype plugin indent on
         set number                        " set line numbers on
         set hidden                        " set hidden for remapping LanguageClient
+        set foldmethod=indent   " fold based on indent
         colorscheme gruvbox               " set the colorsheme
         hi Normal guibg=NONE ctermbg=NONE " enable transparent background
         map <C-n> :NERDTreeToggle<CR>     " NerdTree Toggle
 
-        let g:ycm_global_ycm_extra_conf = '~/dotfiles/home/settings/.ycm_extra_conf.py'
         let g:LanguageClient_serverCommands = {
         \ 'python': ['pyls'],
         \ 'c': ['clangd'],
@@ -19,6 +19,7 @@ self: super:  {
 
         let g:vim_jsx_pretty_highlight_close_tag = 1
         let g:rustfmt_autosave = 1
+        let g:airline#extensions#tabline#enabled = 1
 
         nnoremap <F5> :call LanguageClient_contextMenu()<CR>
         nnoremap <silent> gh :call LanguageClient_textDocument_hover()<CR>
@@ -30,8 +31,10 @@ self: super:  {
       '';
 
        plug.plugins = with super.vimPlugins; [
-         lightline-vim
+         vim-airline
+         vim-airline-themes
          gitgutter
+         auto-pairs
          fzf-vim
          vim-nix
          vim-javascript
@@ -40,11 +43,10 @@ self: super:  {
          vim-jsx-pretty
          LanguageClient-neovim
          nerdtree
+         nerdtree-git-plugin
          vim-startify
          rust-vim
          bufexplorer
-         nerdtree-git-plugin
-         YouCompleteMe
          gruvbox
        ];
      };

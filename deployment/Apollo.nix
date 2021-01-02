@@ -1,6 +1,6 @@
 { config, pkgs , ... }:
 let 
-  global-python = pkgs.python38.withPackages (ps: with ps; [
+    global-python = pkgs.python38.withPackages (ps: with ps; [
     pandas
     numpy
     jedi
@@ -55,7 +55,9 @@ let
     '';
     promptInit = ''
       source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme;
+      source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh;
       alias vim="nvim"
+      alias t="todo.sh"
       '';
     
       };
@@ -71,8 +73,11 @@ let
       bind '"' split-window -h -c "#{pane_current_path}"
       bind % split-window -v -c "#{pane_current_path}"
       bind c new-window -c "#{pane_current_path}"
-    '';
+      run-shell ${pkgs.tmuxPlugins.resurrect}
+      run-shell ${pkgs.tmuxPlugins.continuum}
+      run-shell ${pkgs.tmuxPlugins.vim-tmux-navigator}
 
+    '';
   };
 
   # Used for backwards compatibility, please read the changelog before changing.
